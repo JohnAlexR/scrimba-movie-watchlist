@@ -1,0 +1,57 @@
+main {
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-direction: column;
+    width: 550px;
+    max-width: 100vh;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    background: url('/images/background.png'), rgb(48, 47, 47) 0px -158.291px / 100% 423.007% no-repeat;
+    color: whitesmoke;
+    width: 550px;
+    height: 208px;
+    max-height: 20vh;
+    flex-shrink: 0;;
+}
+
+a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+
+.movies {
+    max-height: 70vh;
+    width: 550px;
+    height: 779px;
+    flex-shrink: 0;
+    position: relative;
+}
+
+
+.placeholder { 
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 150px;
+    width: 150px;
+    margin: auto;
+    text-align: center;
+    line-height: 1px;
+    color: #dfdddd;
+}
+
+.search-bar {
+    position: absolute;
+    bottom: -10px;
+
+}
