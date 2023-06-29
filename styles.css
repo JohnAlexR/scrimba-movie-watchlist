@@ -109,6 +109,9 @@ h4 {
 
 .genre {
     text-align: center;
+    overflow: hidden;
+    max-width: 30%;
+    max-height: 44%;
 }
 
 .movie-info-body {
@@ -150,6 +153,16 @@ h4 {
     margin: auto;
     text-align: center;
     color: #dfdddd;
+}
+
+.failed>img {
+    height: 50px;
+    width: 50px;
+}
+
+.loading {
+    height: 50px;
+    width: 50px;
 }
 
 .search-bar {

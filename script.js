@@ -24,8 +24,6 @@ function handleSearch() {
     movieArray= []
 
     getMovieId(searchInput)
-
-    //will need to figure out how to put +'s between search input result
 }
 
 async function getMovieId(searchInput) {
@@ -33,60 +31,71 @@ async function getMovieId(searchInput) {
     let innerhtml = ''
     let currentMovie = {}
 
-    const res = await fetch(`https://www.omdbapi.com/?apikey=54fe24a4&s=${searchInput}`)
-    const data = await res.json()
+    try{
 
-            await data.Search.forEach((movie) => {
-                movieArray.push(movie.imdbID)})
-    
-                for(let i = 0; i < movieArray.length; i++) {
-    
-                    const response = await fetch(`https://www.omdbapi.com/?apikey=54fe24a4&i=${movieArray[i]}`)
-                    const film = await response.json()
+        const res = await fetch(`https://www.omdbapi.com/?apikey=54fe24a4&s=${searchInput}`)
+        const data = await res.json()
 
-                    currentMovie = {
-                        Title: film.Title,
-                        Poster: film.Poster,
-                        Rating: film.imdbRating,
-                        Runtime: film.Runtime,
-                        Genre: film.Genre,
-                        Plot: film.Plot
-                    }
+                await data.Search.forEach((movie) => {
+                    movieArray.push(movie.imdbID)})
+        
+                    for(let i = 0; i < movieArray.length; i++) {
+        
+                        const response = await fetch(`https://www.omdbapi.com/?apikey=54fe24a4&i=${movieArray[i]}`)
+                        const film = await response.json()
 
-                    currentMoviesArray.push(currentMovie)
+                        currentMovie = {
+                            Title: film.Title,
+                            Poster: film.Poster,
+                            Rating: film.imdbRating,
+                            Runtime: film.Runtime,
+                            Genre: film.Genre,
+                            Plot: film.Plot
+                        }
 
-                            innerhtml += `
-                            <div class="movie">
-                                <div class="movie-img">
-                                    <img src="${film.Poster}" alt="">
-                                </div>
-                                <div class="movie-info-container">
-                                    <div class="movie-info-title">
-                                        <h4>${film.Title}</h4>
-                                        <div class="movie-info-rating">
-                                            <img src="/images/star.svg" alt="">
-                                            <p>${film.imdbRating}/10</p>
-                                        </div>
+                        currentMoviesArray.push(currentMovie)
+
+                                innerhtml += `
+                                <div class="movie">
+                                    <div class="movie-img">
+                                        <img src="${film.Poster}" alt="">
                                     </div>
-                                    <div class="movie-info-middle">
-                                        <p class='runtime'>${film.Runtime}</p>
-                                        <p class='genre'>${film.Genre}</p>
-                                        <div id='${film.Title}-watchlist'>
-                                            <div class="movie-info-add-to-watchlist" data-title="${film.Title}">
-                                                <img src="/images/plus.svg" alt="" data-title="${film.Title}">
-                                                <p data-title="${film.Title}">Watchlist</p>
+                                    <div class="movie-info-container">
+                                        <div class="movie-info-title">
+                                            <h4>${film.Title}</h4>
+                                            <div class="movie-info-rating">
+                                                <img src="/images/star.svg" alt="">
+                                                <p>${film.imdbRating}/10</p>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="movie-info-body">
-                                        <p>${film.Plot}</p>
+                                        <div class="movie-info-middle">
+                                            <p class='runtime'>${film.Runtime}</p>
+                                            <p class='genre'>${film.Genre}</p>
+                                            <div id='${film.Title}-watchlist'>
+                                                <div class="movie-info-add-to-watchlist" data-title="${film.Title}">
+                                                    <img src="/images/plus.svg" alt="" data-title="${film.Title}">
+                                                    <p data-title="${film.Title}">Watchlist</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="movie-info-body">
+                                            <p>${film.Plot}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            `
-                        }
-                        document.getElementById('movies').innerHTML = innerhtml
-                }
+                                `
+                            }
+                            document.getElementById('movies').innerHTML = innerhtml
+                    
+    } catch(err) {
+        document.getElementById('movies').innerHTML = `
+        <div class="placeholder failed">
+                <img src="/images/emoticon-sad-outline.svg" alt="movie reel">
+                <p>Nothing Found, Try Again.</p>
+            </div>
+        `
+    }   
+}
             
 document.addEventListener('click', (e)=> {
 
