@@ -33,7 +33,7 @@ async function getMovieId(searchInput) {
     let innerhtml = ''
     let currentMovie = {}
 
-    const res = await fetch(`http://www.omdbapi.com/?apikey=54fe24a4&s=${searchInput}`)
+    const res = await fetch(`https://www.omdbapi.com/?apikey=54fe24a4&s=${searchInput}`)
     const data = await res.json()
 
             await data.Search.forEach((movie) => {
@@ -41,7 +41,7 @@ async function getMovieId(searchInput) {
     
                 for(let i = 0; i < movieArray.length; i++) {
     
-                    const response = await fetch(`http://www.omdbapi.com/?apikey=54fe24a4&i=${movieArray[i]}`)
+                    const response = await fetch(`https://www.omdbapi.com/?apikey=54fe24a4&i=${movieArray[i]}`)
                     const film = await response.json()
 
                     currentMovie = {
