@@ -67,8 +67,6 @@ document.addEventListener('click', (e)=> {
 
     localStorage.setItem('watchlist', JSON.stringify(watchlist))
 
-    console.log(localStorage)
-
     renderWatchlist()
 
 }})

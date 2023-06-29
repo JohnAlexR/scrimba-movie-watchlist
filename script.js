@@ -9,14 +9,11 @@ let currentMoviesArray = []
 document.getElementById('search-btn').addEventListener('click', handleSearch)
 document.addEventListener("keypress", function(event) {
     if (event.key === 'Enter') {
-        console.log('enter')
         handleSearch()
     }
 });
 
 function handleSearch() {
-
-    console.log('clicked')
 
     document.getElementById('movies').innerHTML = `
         <img src='/images/loading.gif' class='loading'>
