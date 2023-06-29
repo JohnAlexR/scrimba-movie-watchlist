@@ -1,11 +1,20 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+    margin: 0;
+
+    
+}
+
 main {
     font-family: 'Inter', sans-serif;
     display: flex;
     flex-direction: column;
     width: 550px;
-    max-width: 100vh;
+    max-width: 100vw;
+    height: 100vh;
     border-radius: 10px;
-    border: 2px solid black;
 }
 
 header {
@@ -16,6 +25,7 @@ header {
     background: url('/images/background.png'), rgb(48, 47, 47) 0px -158.291px / 100% 423.007% no-repeat;
     color: whitesmoke;
     width: 550px;
+    max-width: 100vw;
     height: 208px;
     max-height: 20vh;
     flex-shrink: 0;;
@@ -30,6 +40,7 @@ a {
 .movies {
     max-height: 70vh;
     width: 550px;
+    max-width: 100vw;
     height: 779px;
     position: relative;
     display: flex;
@@ -42,7 +53,7 @@ a {
 .movie {
     display: grid;
     grid-template: 200px / 1fr 4fr;
-    width: 80%;
+    width: 92%;
     border-bottom: 2px solid grey;
     font-size: 12px;
 }
@@ -73,13 +84,46 @@ h4 {
 
 .movie-info-title {
     display: flex;
-    justify-content: space-around;
+    justify-content: start;
+    gap: 10px;
+    margin-bottom: 0px;
+    align-items: center;
 }
 
 .movie-info-middle {
     display: flex;
     justify-content: space-around;
     margin: 0;
+    height: 30%;
+    overflow: hidden;
+    align-items: center;
+}
+
+.genre, .runtime {
+    font-size: 10px;
+}
+
+.runtime {
+    width: 20%;
+}
+
+.genre {
+    text-align: center;
+}
+
+.movie-info-body {
+    margin-top: -10px;
+    height: 30%;
+    overflow: hidden;
+}
+
+.movie-info-body>p {
+  display: -webkit-box;
+  max-width: 400px;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .movie-info-rating {
@@ -90,7 +134,7 @@ h4 {
 .movie-info-add-to-watchlist {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 3px;
     cursor: pointer;
 }
 

@@ -69,8 +69,8 @@ async function getMovieId(searchInput) {
                                         </div>
                                     </div>
                                     <div class="movie-info-middle">
-                                        <p>${film.Runtime}</p>
-                                        <p>${film.Genre}</p>
+                                        <p class='runtime'>${film.Runtime}</p>
+                                        <p class='genre'>${film.Genre}</p>
                                         <div id='${film.Title}-watchlist'>
                                             <div class="movie-info-add-to-watchlist" data-title="${film.Title}">
                                                 <img src="/images/plus.svg" alt="" data-title="${film.Title}">
