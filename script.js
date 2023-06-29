@@ -1,8 +1,20 @@
 // api key:  54fe24a4
 
-let movieArray = []
 
-document.getElementById('search-btn').addEventListener('click', async ()=> {
+const watchlist = []
+
+let movieArray = []
+let currentMoviesArray = []
+
+document.getElementById('search-btn').addEventListener('click', handleSearch)
+document.addEventListener("keypress", function(event) {
+    if (event.key === 'Enter') {
+        console.log('enter')
+        handleSearch()
+    }
+});
+
+function handleSearch() {
 
     console.log('clicked')
 
@@ -17,11 +29,12 @@ document.getElementById('search-btn').addEventListener('click', async ()=> {
     getMovieId(searchInput)
 
     //will need to figure out how to put +'s between search input result
-})
+}
 
 async function getMovieId(searchInput) {
 
     let innerhtml = ''
+    let currentMovie = {}
 
     const res = await fetch(`http://www.omdbapi.com/?apikey=54fe24a4&s=${searchInput}`)
     const data = await res.json()
@@ -34,7 +47,16 @@ async function getMovieId(searchInput) {
                     const response = await fetch(`http://www.omdbapi.com/?apikey=54fe24a4&i=${movieArray[i]}`)
                     const film = await response.json()
 
-                    console.log(film)
+                    currentMovie = {
+                        Title: film.Title,
+                        Poster: film.Poster,
+                        Rating: film.imdbRating,
+                        Runtime: film.Runtime,
+                        Genre: film.Genre,
+                        Plot: film.Plot
+                    }
+
+                    currentMoviesArray.push(currentMovie)
 
                             innerhtml += `
                             <div class="movie">
@@ -52,9 +74,11 @@ async function getMovieId(searchInput) {
                                     <div class="movie-info-middle">
                                         <p>${film.Runtime}</p>
                                         <p>${film.Genre}</p>
-                                        <div class="movie-info-add-to-watchlist">
-                                            <img src="/images/plus.svg" alt="">
-                                            <p>Watchlist</p>
+                                        <div id='${film.Title}-watchlist'>
+                                            <div class="movie-info-add-to-watchlist" data-title="${film.Title}">
+                                                <img src="/images/plus.svg" alt="" data-title="${film.Title}">
+                                                <p data-title="${film.Title}">Watchlist</p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="movie-info-body">
@@ -63,9 +87,39 @@ async function getMovieId(searchInput) {
                                 </div>
                             </div>
                             `
-
-                            console.log(innerhtml)
                         }
                         document.getElementById('movies').innerHTML = innerhtml
                 }
             
+document.addEventListener('click', (e)=> {
+
+    if(e.target.dataset.title) {
+        const targetMovieObj = currentMoviesArray.filter((movie)=> {
+            return movie.Title === e.target.dataset.title
+        })[0]
+        
+        watchlist.push(targetMovieObj)
+
+        document.getElementById(`${e.target.dataset.title}-watchlist`).innerHTML = `
+            <div class="movie-info-add-to-watchlist" data-remove="${e.target.dataset.title}">
+                <img src="/images/minus.svg" alt="" data-remove="${e.target.dataset.title}">
+                <p data-remove="${e.target.dataset.title}">Remove</p>
+            </div>`
+    }
+
+
+    if(e.target.dataset.remove) {
+        const targetMovieObj = currentMoviesArray.filter((movie)=> {
+            return movie.Title === e.target.dataset.title
+        })[0]
+
+        const index = watchlist.indexOf(targetMovieObj)
+        watchlist.splice(index, 1)
+
+
+    }
+
+
+    localStorage.setItem('watchlist', JSON.stringify(watchlist))
+
+})
