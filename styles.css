@@ -52,7 +52,7 @@ a {
 
 .movie {
     display: grid;
-    grid-template: 200px / 1fr 4fr;
+    grid-template: 200px / 1fr 3fr;
     width: 92%;
     border-bottom: 2px solid grey;
     font-size: 12px;
@@ -68,12 +68,14 @@ a {
 
 .movie-img>img{
     height: 70%;
+    max-width: 100%;
 }
 
 .movie-info-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 3px;
 }
 
 h4 {
