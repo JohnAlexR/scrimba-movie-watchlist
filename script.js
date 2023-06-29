@@ -1,7 +1,7 @@
 // api key:  54fe24a4
+console.log(localStorage.getItem('watchlist'))
 
-
-const watchlist = []
+const watchlist = JSON.parse( localStorage.getItem('watchlist'))
 
 let movieArray = []
 let currentMoviesArray = []
@@ -102,21 +102,30 @@ document.addEventListener('click', (e)=> {
                 <img src="/images/minus.svg" alt="" data-remove="${e.target.dataset.title}">
                 <p data-remove="${e.target.dataset.title}">Remove</p>
             </div>`
+
+        localStorage.setItem('watchlist', JSON.stringify(watchlist))
     }
 
 
     if(e.target.dataset.remove) {
+
+        console.log(e.target.dataset.remove)
+
         const targetMovieObj = currentMoviesArray.filter((movie)=> {
-            return movie.Title === e.target.dataset.title
+            return movie.Title === e.target.dataset.remove
         })[0]
 
         const index = watchlist.indexOf(targetMovieObj)
         watchlist.splice(index, 1)
 
 
+        document.getElementById(`${e.target.dataset.remove}-watchlist`).innerHTML = `
+            <div class="movie-info-add-to-watchlist" data-title="${e.target.dataset.remove}">
+                <img src="/images/plus.svg" alt="" data-title="${e.target.dataset.remove}">
+                <p data-title="${e.target.dataset.remove}">Watchlist</p>
+            </div>`
+
+            localStorage.setItem('watchlist', JSON.stringify(watchlist))
     }
-
-
-    localStorage.setItem('watchlist', JSON.stringify(watchlist))
 
 })
